@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ecsdemo-frontend
+  name: ecsdemo-frontend-canary
   labels:
     app: ecsdemo-frontend
   namespace: default
@@ -21,7 +21,7 @@ spec:
         app: ecsdemo-frontend
     spec:
       containers:
-      - image: brentley/ecsdemo-frontend:latest
+      - image: rnlsoshk1/frontend:latest
         imagePullPolicy: Always
         name: ecsdemo-frontend
         ports:
