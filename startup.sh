@@ -25,15 +25,15 @@ esac
 
 if [[ "${orchestrator}" == 'ecs' ]]; then
     case "${NETWORK}" in
-      100)
+      0)
         zone=a
         color=Crimson
         ;;
-      101)
+      2)
         zone=b
         color=CornflowerBlue
         ;;
-      102)
+      3)
         zone=c
         color=LightGreen
         ;;
@@ -69,13 +69,14 @@ if [[ "${orchestrator}" == 'kubernetes' ]]; then
 fi 
 
 if [[ ${orchestrator} == 'unknown' ]]; then
-  zone=$(curl -m2 -s http://169.254.169.254/latest/dynamic/instance-identity/document | jq -r '.availabilityZone' | grep -o .$)
+  # zone=$(curl -m2 -s http://169.254.169.254/latest/dynamic/instance-identity/document | jq -r '.availabilityZone' | grep -o .$)
+  zone=unknown
 fi 
 
 # Am I on ec2 instances?
-if [[ ${zone} == "unknown" ]]; then
-  zone=$(curl -m2 -s http://169.254.169.254/latest/dynamic/instance-identity/document | jq -r '.availabilityZone' | grep -o .$)
-fi
+# if [[ ${zone} == "unknown" ]]; then
+  # zone=$(curl -m2 -s http://169.254.169.254/latest/dynamic/instance-identity/document | jq -r '.availabilityZone' | grep -o .$)
+# fi
 
 export CODE_HASH="$(cat code_hash.txt)"
 export AZ="${IP} in AZ-${zone}"
